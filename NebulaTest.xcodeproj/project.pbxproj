@@ -21,9 +21,22 @@
 		061A9D6B308747C700DD7EBA /* NebulaTestTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NebulaTestTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		061A9D5B308747C600DD7EB1 /* Exceptions for "NebulaTest" folder in "NebulaTest" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 061A9D58308747C600DD7EBA /* NebulaTest */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		061A9D5B308747C600DD7EBA /* NebulaTest */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				061A9D5B308747C600DD7EB1 /* Exceptions for "NebulaTest" folder in "NebulaTest" target */,
+			);
 			path = NebulaTest;
 			sourceTree = "<group>";
 		};
@@ -313,6 +326,7 @@
 				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = NebulaTest/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Nebula;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -353,6 +367,7 @@
 				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = NebulaTest/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Nebula;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
