@@ -79,6 +79,8 @@ final class ApphudSubscriptionService: SubscriptionService {
         return await paywalls().first { $0.identifier == paywallID }
     }
 
+    // The Apphud project uses the legacy paywall list without placements, so the
+    // deprecated paywalls callback is the only way to reach the "main" paywall.
     private func paywalls() async -> [ApphudPaywall] {
         await withCheckedContinuation { waiter in
             Apphud.paywallsDidLoadCallback { paywalls, _ in
