@@ -1,0 +1,140 @@
+included:
+  - NebulaTest
+  - NebulaTestTests
+
+excluded:
+  - DerivedData
+  - .build
+
+analyzer_rules:
+  - unused_declaration
+  - unused_import
+
+opt_in_rules:
+  - array_init
+  - closure_body_length
+  - closure_end_indentation
+  - closure_spacing
+  - collection_alignment
+  - contains_over_filter_count
+  - contains_over_filter_is_empty
+  - contains_over_first_not_nil
+  - discouraged_object_literal
+  - empty_collection_literal
+  - empty_count
+  - empty_string
+  - enum_case_associated_values_count
+  - explicit_init
+  - fallthrough
+  - fatal_error_message
+  - file_name_no_space
+  - first_where
+  - flatmap_over_map_reduce
+  - force_unwrapping
+  - identical_operands
+  - implicit_return
+  - implicitly_unwrapped_optional
+  - joined_default_parameter
+  - last_where
+  - legacy_multiple
+  - literal_expression_end_indentation
+  - lower_acl_than_parent
+  - modifier_order
+  - multiline_arguments
+  - multiline_parameters
+  - no_magic_numbers
+  - operator_usage_whitespace
+  - overridden_super_call
+  - prefer_self_in_static_references
+  - prefer_self_type_over_type_of_self
+  - prefer_zero_over_explicit_init
+  - private_action
+  - private_outlet
+  - prohibited_super_call
+  - reduce_into
+  - redundant_nil_coalescing
+  - redundant_type_annotation
+  - shorthand_optional_binding
+  - sorted_first_last
+  - static_operator
+  - toggle_bool
+  - unavailable_function
+  - unneeded_parentheses_in_closure_argument
+  - unowned_variable_capture
+  - vertical_parameter_alignment_on_call
+  - vertical_whitespace_closing_braces
+  - vertical_whitespace_opening_braces
+  - yoda_condition
+
+disabled_rules:
+  - todo
+
+line_length:
+  warning: 130
+  error: 160
+  ignores_urls: true
+  ignores_comments: true
+
+file_length:
+  warning: 300
+  error: 400
+
+type_body_length:
+  warning: 200
+  error: 300
+
+function_body_length:
+  warning: 40
+  error: 60
+
+cyclomatic_complexity:
+  warning: 10
+  error: 15
+
+identifier_name:
+  min_length: 2
+  excluded: [id, x, y, dx, dy, to, at]
+
+type_name:
+  min_length: 3
+
+nesting:
+  type_level: 2
+
+no_magic_numbers:
+  test_parent_classes: []
+
+custom_rules:
+  domain_has_no_ui_imports:
+    name: "Domain must not depend on UI frameworks"
+    included: "NebulaTest/Domain/.*\\.swift"
+    regex: "^import (SwiftUI|UIKit|Combine|CoreData|ApphudSDK)"
+    message: "Domain layer may import Foundation only; UI, storage and SDKs belong to outer layers."
+    severity: error
+
+  data_has_no_ui_imports:
+    name: "Data must not depend on UI"
+    included: "NebulaTest/Data/.*\\.swift"
+    regex: "^import (SwiftUI|UIKit)"
+    message: "Data layer must not import UI frameworks."
+    severity: error
+
+  presentation_has_no_storage_imports:
+    name: "Presentation must not touch storage or SDKs"
+    included: "NebulaTest/Presentation/.*\\.swift"
+    regex: "^import (CoreData|ApphudSDK)"
+    message: "Views and view models talk to Domain protocols, never to CoreData or SDKs directly."
+    severity: error
+
+  no_file_header_comment:
+    name: "No file header comments"
+    regex: "\\A//"
+    message: "Files start with import, not with a header comment."
+    severity: error
+
+  no_print:
+    name: "No print in app code"
+    included: "NebulaTest/.*\\.swift"
+    regex: "^\\s*print\\("
+    message: "Use a logger instead of print."
+    severity: warning

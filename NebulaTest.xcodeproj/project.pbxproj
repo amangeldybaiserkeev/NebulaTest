@@ -89,6 +89,7 @@
 				061A9D55308747C600DD7EBA /* Sources */,
 				061A9D56308747C600DD7EBA /* Frameworks */,
 				061A9D57308747C600DD7EBA /* Resources */,
+				061A9D5B308747C600DD7EC9 /* SwiftLint */,
 			);
 			buildRules = (
 			);
@@ -173,6 +174,24 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		061A9D5B308747C600DD7EC9 /* SwiftLint */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			name = SwiftLint;
+			shellPath = /bin/sh;
+			shellScript = (
+				"export PATH=\"$HOME/.local/bin:/opt/homebrew/bin:$PATH\"",
+				"if which swiftlint >/dev/null; then",
+				"  swiftlint lint --quiet",
+				"else",
+				"  echo \"warning: SwiftLint is not installed. Install it with: brew install swiftlint\"",
+				"fi",
+				"",
+			);
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		061A9D55308747C600DD7EBA /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -233,7 +252,7 @@
 				DEVELOPMENT_TEAM = "";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
-				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -297,7 +316,7 @@
 				DEVELOPMENT_TEAM = "";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
