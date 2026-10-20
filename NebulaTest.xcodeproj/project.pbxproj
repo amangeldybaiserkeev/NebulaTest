@@ -6,6 +6,10 @@
 	objectVersion = 110;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		061A9D5B308747C600DD7ED3 /* ApphudSDK in Frameworks */ = {isa = PBXBuildFile; productRef = 061A9D5B308747C600DD7ED2 /* ApphudSDK */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		061A9D6C308747C700DD7EBA /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -26,6 +30,7 @@
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Info.plist,
+				Products.storekit,
 			);
 			target = 061A9D58308747C600DD7EBA /* NebulaTest */;
 		};
@@ -51,6 +56,7 @@
 		061A9D56308747C600DD7EBA /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			files = (
+				061A9D5B308747C600DD7ED3 /* ApphudSDK in Frameworks */,
 			);
 		};
 		061A9D68308747C700DD7EBA /* Frameworks */ = {
@@ -97,6 +103,9 @@
 				061A9D5B308747C600DD7EBA /* NebulaTest */,
 			);
 			name = NebulaTest;
+			packageProductDependencies = (
+				061A9D5B308747C600DD7ED2 /* ApphudSDK */,
+			);
 			productName = NebulaTest;
 			productReference = 061A9D59308747C600DD7EBA /* NebulaTest.app */;
 			productType = "com.apple.product-type.application";
@@ -150,6 +159,9 @@
 			);
 			mainGroup = 061A9D50308747C600DD7EBA;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				061A9D5B308747C600DD7ED1 /* XCRemoteSwiftPackageReference "ApphudSDK" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 061A9D5A308747C600DD7EBA /* Products */;
 			projectDirPath = "";
@@ -267,7 +279,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 27.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -325,7 +337,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 27.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
@@ -425,7 +437,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 27.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.labs.NebulaTestTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -447,7 +459,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 27.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.labs.NebulaTestTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -489,6 +501,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		061A9D5B308747C600DD7ED1 /* XCRemoteSwiftPackageReference "ApphudSDK" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/apphud/ApphudSDK";
+			requirement = {
+				kind = exactVersion;
+				version = 3.6.2;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		061A9D5B308747C600DD7ED2 /* ApphudSDK */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 061A9D5B308747C600DD7ED1 /* XCRemoteSwiftPackageReference "ApphudSDK" */;
+			productName = ApphudSDK;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 061A9D51308747C600DD7EBA /* Project object */;
 	validationLevel = 1;

@@ -1,0 +1,86 @@
+{
+  "appPolicies": {
+    "eula": "",
+    "policies": [
+      {
+        "locale": "en_US",
+        "policyText": "",
+        "policyURL": ""
+      }
+    ]
+  },
+  "identifier": "7E5C2C3A-5B1F-4F0E-9D2A-1B4C7E9A3F10",
+  "nonRenewingSubscriptions": [],
+  "products": [],
+  "settings": {
+    "_askToBuyEnabled": false,
+    "_billingGracePeriodEnabled": false,
+    "_billingIssuesEnabled": false,
+    "_disableDialogs": false,
+    "_failTransactionsEnabled": false,
+    "_locale": "en_US",
+    "_renewalBillingIssuesEnabled": false,
+    "_storefront": "USA",
+    "_storeKitErrors": [],
+    "_timeRate": 0
+  },
+  "subscriptionBundleGroups": [],
+  "subscriptionGroups": [
+    {
+      "id": "NB0G0001",
+      "localizations": [],
+      "name": "Premium",
+      "subscriptions": [
+        {
+          "adHocOffers": [],
+          "codeOffers": [],
+          "displayPrice": "39.99",
+          "familyShareable": false,
+          "groupNumber": 1,
+          "internalID": "NB0S0001",
+          "introductoryOffers": [],
+          "localizations": [
+            {
+              "description": "Full access to all AI tools for a year",
+              "displayName": "Yearly",
+              "locale": "en_US"
+            }
+          ],
+          "productID": "year_39.99_nottrial",
+          "recurringSubscriptionPeriod": "P1Y",
+          "referenceName": "Yearly",
+          "subscriptionGroupID": "NB0G0001",
+          "type": "RecurringSubscription",
+          "winbackOffers": []
+        },
+        {
+          "adHocOffers": [],
+          "codeOffers": [],
+          "displayPrice": "4.99",
+          "familyShareable": false,
+          "groupNumber": 1,
+          "internalID": "NB0S0002",
+          "introductoryOffers": [],
+          "localizations": [
+            {
+              "description": "Full access to all AI tools for a week",
+              "displayName": "Weekly",
+              "locale": "en_US"
+            }
+          ],
+          "productID": "week_4.99_nottrial",
+          "recurringSubscriptionPeriod": "P1W",
+          "referenceName": "Weekly",
+          "subscriptionGroupID": "NB0G0001",
+          "type": "RecurringSubscription",
+          "winbackOffers": []
+        }
+      ]
+    }
+  ],
+  "subscriptionSuiteGroups": [],
+  "version": {
+    "major": 5,
+    "minor": 0
+  }
+}

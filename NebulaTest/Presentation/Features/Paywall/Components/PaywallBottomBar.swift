@@ -1,6 +1,7 @@
 import SwiftUI
 
 struct PaywallBottomBar: View {
+    var isUnlockEnabled = true
     let onUnlock: () -> Void
     let onRestore: () -> Void
     let onPrivacyPolicy: () -> Void
@@ -15,7 +16,7 @@ struct PaywallBottomBar: View {
                 .foregroundStyle(.textSecondary)
                 .padding(.vertical, Spacing.sm)
 
-            GradientButton(title: "Unlock now", action: onUnlock)
+            GradientButton(title: "Unlock now", isEnabled: isUnlockEnabled, action: onUnlock)
                 .padding(.horizontal, Spacing.screenEdge)
                 .padding(.top, Spacing.xxs)
 

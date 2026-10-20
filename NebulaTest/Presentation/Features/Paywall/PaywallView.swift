@@ -1,14 +1,19 @@
 import SwiftUI
 
 struct PaywallView: View {
+    @StateObject private var viewModel: PaywallViewModel
     let onClose: () -> Void
     let onUnlock: () -> Void
 
-    var plans: [PaywallPlanItem] = PaywallPlanItem.placeholders
     var closeButtonDelay: Double = 2
 
-    @State private var selectedPlanID: String?
     @State private var isCloseButtonVisible = false
+
+    init(viewModel: PaywallViewModel, onClose: @escaping () -> Void, onUnlock: @escaping () -> Void) {
+        _viewModel = StateObject(wrappedValue: viewModel)
+        self.onClose = onClose
+        self.onUnlock = onUnlock
+    }
 
     var body: some View {
         ZStack(alignment: .topLeading) {
@@ -16,34 +21,56 @@ struct PaywallView: View {
 
             VStack(spacing: 0) {
                 ScrollView {
-                    PaywallContentView(plans: plans, selectedPlanID: selectedPlanID, onSelectPlan: selectPlan)
-                        .padding(.horizontal, Spacing.screenEdge)
-                        .padding(.vertical, Spacing.lg)
+                    PaywallContentView(
+                        plans: viewModel.plans,
+                        selectedPlanID: viewModel.selectedPlanID,
+                        onSelectPlan: viewModel.selectPlan
+                    )
+                    .padding(.horizontal, Spacing.screenEdge)
+                    .padding(.vertical, Spacing.lg)
                 }
                 .scrollIndicators(.hidden)
 
                 PaywallBottomBar(
-                    onUnlock: onUnlock,
-                    onRestore: restorePurchases,
+                    isUnlockEnabled: viewModel.selectedPlanID != nil && !viewModel.isPurchasing,
+                    onUnlock: purchase,
+                    onRestore: restore,
                     onPrivacyPolicy: openPrivacyPolicy,
                     onTermsOfUse: openTermsOfUse
                 )
             }
 
             PaywallCloseButton(isVisible: isCloseButtonVisible, action: onClose)
+
+            if viewModel.isPurchasing {
+                PurchaseProgressOverlay()
+            }
         }
-        .onAppear(perform: selectDefaultPlan)
+        .task { await viewModel.load() }
         .task(revealCloseButton)
-    }
-
-    private func selectPlan(_ id: String) {
-        selectedPlanID = id
-    }
-
-    private func selectDefaultPlan() {
-        if selectedPlanID == nil {
-            selectedPlanID = plans.first?.id
+        .onChange(of: viewModel.didUnlock) { didUnlock in
+            if didUnlock { onUnlock() }
         }
+        .alert("Something went wrong", isPresented: errorPresented) {
+            Button("OK", role: .cancel) {}
+        } message: {
+            Text(viewModel.errorMessage ?? "")
+        }
+    }
+
+    private var errorPresented: Binding<Bool> {
+        Binding(
+            get: { viewModel.errorMessage != nil },
+            set: { if !$0 { viewModel.errorMessage = nil } }
+        )
+    }
+
+    private func purchase() {
+        Task { await viewModel.purchase() }
+    }
+
+    private func restore() {
+        Task { await viewModel.restore() }
     }
 
     @Sendable
@@ -56,9 +83,4 @@ struct PaywallView: View {
 
     private func openPrivacyPolicy() {}
     private func openTermsOfUse() {}
-    private func restorePurchases() {}
-}
-
-#Preview {
-    PaywallView(onClose: {}, onUnlock: {})
 }

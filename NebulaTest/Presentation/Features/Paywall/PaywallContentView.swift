@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct PaywallContentView: View {
-    let plans: [PaywallPlanItem]
+    let plans: LoadState<[PaywallPlanItem]>
     let selectedPlanID: String?
     let onSelectPlan: (String) -> Void
 
@@ -27,19 +27,13 @@ struct PaywallContentView: View {
             }
             .padding(.top, Spacing.xxl)
 
-            VStack(spacing: Spacing.md) {
-                ForEach(plans) { plan in
-                    PaywallPlanRow(plan: plan, isSelected: plan.id == selectedPlanID) {
-                        onSelectPlan(plan.id)
-                    }
-                }
-            }
-            .padding(.top, Spacing.xxl)
+            PaywallPlansSection(plans: plans, selectedPlanID: selectedPlanID, onSelectPlan: onSelectPlan)
+                .padding(.top, Spacing.xxl)
         }
     }
 }
 
 #Preview {
-    PaywallContentView(plans: PaywallPlanItem.placeholders, selectedPlanID: "year") { _ in }
+    PaywallContentView(plans: .loaded(PaywallPlanItem.placeholders), selectedPlanID: "year") { _ in }
         .background(Color.appBackground)
 }

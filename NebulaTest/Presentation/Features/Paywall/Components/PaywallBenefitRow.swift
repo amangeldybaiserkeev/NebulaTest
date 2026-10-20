@@ -8,6 +8,7 @@ struct PaywallBenefitRow: View {
             Image(benefit.icon)
                 .resizable()
                 .frame(width: IconSize.md, height: IconSize.md)
+                .foregroundStyle(LinearGradient.accent)
                 .accessibilityHidden(true)
             Text(benefit.text)
                 .font(AppFont.bodyMedium)

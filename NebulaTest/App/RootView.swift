@@ -4,7 +4,10 @@ struct RootView: View {
     @StateObject private var viewModel: RootViewModel
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
+    private let container: AppContainer
+
     init(container: AppContainer) {
+        self.container = container
         _viewModel = StateObject(wrappedValue: container.makeRootViewModel())
     }
 
@@ -18,7 +21,11 @@ struct RootView: View {
                 OnboardingView(onFinish: viewModel.completeOnboarding)
                     .transition(.opacity)
             case .paywall:
-                PaywallView(onClose: viewModel.finishPaywall, onUnlock: viewModel.finishPaywall)
+                PaywallView(
+                    viewModel: container.makePaywallViewModel(),
+                    onClose: viewModel.finishPaywall,
+                    onUnlock: viewModel.finishPaywall
+                )
                     .transition(reduceMotion ? .opacity : .move(edge: .trailing))
             case .main:
                 MainView()

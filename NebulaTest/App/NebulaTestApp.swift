@@ -2,11 +2,11 @@ import SwiftUI
 
 @main
 struct NebulaTestApp: App {
-    private let container = AppContainer()
+    @StateObject private var holder = ContainerHolder()
 
     var body: some Scene {
         WindowGroup {
-            RootView(container: container)
+            RootView(container: holder.container)
         }
     }
 }
