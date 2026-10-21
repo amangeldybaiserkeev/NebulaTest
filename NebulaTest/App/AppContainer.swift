@@ -72,6 +72,14 @@ final class AppContainer {
         )
     }
 
+    func makeHistoryViewModel() -> HistoryViewModel {
+        HistoryViewModel(chatStore: chatStore, generationManager: generationManager)
+    }
+
+    func makeSettingsViewModel() -> SettingsViewModel {
+        SettingsViewModel(subscriptionService: subscriptionService, cache: AppCache())
+    }
+
     func makeVideoResultViewModel(generationID: UUID) -> VideoResultViewModel {
         VideoResultViewModel(generationID: generationID, generationManager: generationManager, saver: VideoSaver())
     }

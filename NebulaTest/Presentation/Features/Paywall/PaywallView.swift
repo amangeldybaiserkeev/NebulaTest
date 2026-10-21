@@ -8,6 +8,7 @@ struct PaywallView: View {
     var closeButtonDelay: Double = 2
 
     @State private var isCloseButtonVisible = false
+    @Environment(\.openURL) private var openURL
 
     init(viewModel: PaywallViewModel, onClose: @escaping () -> Void, onUnlock: @escaping () -> Void) {
         _viewModel = StateObject(wrappedValue: viewModel)
@@ -74,6 +75,11 @@ struct PaywallView: View {
         }
     }
 
-    private func openPrivacyPolicy() {}
-    private func openTermsOfUse() {}
+    private func openPrivacyPolicy() {
+        openURL(AppConfig.Links.privacyPolicy)
+    }
+
+    private func openTermsOfUse() {
+        openURL(AppConfig.Links.termsOfUse)
+    }
 }

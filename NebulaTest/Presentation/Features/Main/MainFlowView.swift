@@ -58,9 +58,15 @@ struct MainFlowView: View {
         case .videoTemplates, .templatePreview, .generating, .videoResult:
             videoDestination(for: route)
         case .history:
-            Text("History")
+            HistoryView(
+                viewModel: container.makeHistoryViewModel(),
+                thumbnailLoader: container.thumbnailLoader,
+                onBack: pop,
+                onOpenChat: { path.append(.chat(id: $0)) },
+                onOpenVideo: { path.append(.videoResult(id: $0)) }
+            )
         case .settings:
-            Text("Settings")
+            SettingsView(viewModel: container.makeSettingsViewModel(), container: container, onBack: pop)
         }
     }
 

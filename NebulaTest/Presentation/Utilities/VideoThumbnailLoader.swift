@@ -2,16 +2,16 @@ import AVFoundation
 import UIKit
 
 actor VideoThumbnailLoader {
+    static let directory = URL.cachesDirectory.appending(path: "VideoThumbnails")
+
     private let memory = NSCache<NSURL, UIImage>()
-    private let directory: URL
     private var inFlight: [URL: Task<UIImage?, Never>] = [:]
 
     private let maximumSide: Double = 600
     private let compressionQuality: Double = 0.8
 
     init() {
-        directory = URL.cachesDirectory.appending(path: "VideoThumbnails")
-        try? FileManager.default.createDirectory(at: directory, withIntermediateDirectories: true)
+        try? FileManager.default.createDirectory(at: Self.directory, withIntermediateDirectories: true)
     }
 
     func thumbnail(for url: URL) async -> UIImage? {
@@ -26,7 +26,7 @@ actor VideoThumbnailLoader {
     }
 
     private func load(_ url: URL) async -> UIImage? {
-        let file = directory.appending(path: url.lastPathComponent).appendingPathExtension("jpg")
+        let file = Self.directory.appending(path: url.lastPathComponent).appendingPathExtension("jpg")
         if let data = try? Data(contentsOf: file), let image = UIImage(data: data) { return image }
 
         let generator = AVAssetImageGenerator(asset: AVURLAsset(url: url))

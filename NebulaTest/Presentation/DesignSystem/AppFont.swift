@@ -25,6 +25,7 @@ enum AppFont {
         static let closeIcon: Double = 17
         static let body: Double = 16
         static let caption: Double = 14
+        static let footnote: Double = 13
         static let small: Double = 12
         static let legal: Double = 11
     }
@@ -46,6 +47,7 @@ enum AppFont {
     static let captionSemibold = custom(Size.caption, weight: .semibold)
     static let small = custom(Size.small, weight: .medium)
 
+    static let systemFootnote = Font.system(size: Size.footnote)
     static let systemSmall = Font.system(size: Size.small)
     static let systemLegal = Font.system(size: Size.legal)
     static let systemCloseIcon = Font.system(size: Size.closeIcon)

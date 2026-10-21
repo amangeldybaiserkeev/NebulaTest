@@ -13,6 +13,14 @@ enum AppConfig {
         static let videoBaseURL = url("https://nebulaapps.site/pixverse")
     }
 
+    // The task does not provide legal pages or a support address; these are placeholders on the API domain.
+    enum Links {
+        static let privacyPolicy = url("https://nebulaapps.site/privacy")
+        static let termsOfUse = url("https://nebulaapps.site/terms")
+        static let support = url("mailto:support@nebulaapps.site")
+        static let appStore = url("https://apps.apple.com/app/id0000000000")
+    }
+
     private static func url(_ string: StaticString) -> URL {
         guard let url = URL(string: "\(string)") else { fatalError("Invalid URL literal: \(string)") }
         return url
