@@ -1,2 +1,19 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="25249" systemVersion="26A434" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier=""/>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="23788" systemVersion="25A354" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="ChatEntity" representedClassName="ChatEntity" syncable="YES" codeGenerationType="class">
+        <attribute name="createdAt" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="id" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="isPinned" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
+        <attribute name="lastMessagePreview" optional="YES" attributeType="String"/>
+        <attribute name="title" attributeType="String"/>
+        <attribute name="updatedAt" attributeType="Date" usesScalarValueType="NO"/>
+        <relationship name="messages" toMany="YES" deletionRule="Cascade" destinationEntity="MessageEntity" inverseName="chat" inverseEntity="MessageEntity"/>
+    </entity>
+    <entity name="MessageEntity" representedClassName="MessageEntity" syncable="YES" codeGenerationType="class">
+        <attribute name="createdAt" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="id" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="role" attributeType="String"/>
+        <attribute name="text" attributeType="String"/>
+        <relationship name="chat" maxCount="1" deletionRule="Nullify" destinationEntity="ChatEntity" inverseName="messages" inverseEntity="ChatEntity"/>
+    </entity>
+</model>

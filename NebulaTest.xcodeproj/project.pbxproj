@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		061A9D5B308747C600DD7ED3 /* ApphudSDK in Frameworks */ = {isa = PBXBuildFile; productRef = 061A9D5B308747C600DD7ED2 /* ApphudSDK */; };
+		061A9D5B308747C600DD7EE3 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 061A9D5B308747C600DD7EE2 /* Lottie */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -22,6 +23,7 @@
 
 /* Begin PBXFileReference section */
 		061A9D59308747C600DD7EBA /* NebulaTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NebulaTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		061A9D5B308747C600DD7EF1 /* Secrets.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Secrets.xcconfig; path = Configuration/Secrets.xcconfig; sourceTree = "<group>"; };
 		061A9D6B308747C700DD7EBA /* NebulaTestTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NebulaTestTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -57,6 +59,7 @@
 			isa = PBXFrameworksBuildPhase;
 			files = (
 				061A9D5B308747C600DD7ED3 /* ApphudSDK in Frameworks */,
+				061A9D5B308747C600DD7EE3 /* Lottie in Frameworks */,
 			);
 		};
 		061A9D68308747C700DD7EBA /* Frameworks */ = {
@@ -70,6 +73,7 @@
 		061A9D50308747C600DD7EBA = {
 			isa = PBXGroup;
 			children = (
+				061A9D5B308747C600DD7EF1 /* Secrets.xcconfig */,
 				061A9D5B308747C600DD7EBA /* NebulaTest */,
 				061A9D6E308747C700DD7EBA /* NebulaTestTests */,
 				061A9D5A308747C600DD7EBA /* Products */,
@@ -105,6 +109,7 @@
 			name = NebulaTest;
 			packageProductDependencies = (
 				061A9D5B308747C600DD7ED2 /* ApphudSDK */,
+				061A9D5B308747C600DD7EE2 /* Lottie */,
 			);
 			productName = NebulaTest;
 			productReference = 061A9D59308747C600DD7EBA /* NebulaTest.app */;
@@ -161,6 +166,7 @@
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
 				061A9D5B308747C600DD7ED1 /* XCRemoteSwiftPackageReference "ApphudSDK" */,
+				061A9D5B308747C600DD7EE1 /* XCRemoteSwiftPackageReference "lottie-ios" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 061A9D5A308747C600DD7EBA /* Products */;
@@ -349,6 +355,7 @@
 		};
 		061A9D7E308747C700DD7EBA /* Debug configuration for PBXNativeTarget "NebulaTest" */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 061A9D5B308747C600DD7EF1 /* Secrets.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -390,6 +397,7 @@
 		};
 		061A9D7F308747C700DD7EBA /* Release configuration for PBXNativeTarget "NebulaTest" */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 061A9D5B308747C600DD7EF1 /* Secrets.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -511,6 +519,14 @@
 				version = 3.6.2;
 			};
 		};
+		061A9D5B308747C600DD7EE1 /* XCRemoteSwiftPackageReference "lottie-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/airbnb/lottie-ios";
+			requirement = {
+				kind = exactVersion;
+				version = 4.6.1;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -518,6 +534,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 061A9D5B308747C600DD7ED1 /* XCRemoteSwiftPackageReference "ApphudSDK" */;
 			productName = ApphudSDK;
+		};
+		061A9D5B308747C600DD7EE2 /* Lottie */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 061A9D5B308747C600DD7EE1 /* XCRemoteSwiftPackageReference "lottie-ios" */;
+			productName = Lottie;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
