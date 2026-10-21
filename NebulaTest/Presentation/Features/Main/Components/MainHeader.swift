@@ -17,7 +17,6 @@ struct MainHeader: View {
             Spacer()
             CircleIconButton(icon: .icSettings, action: onSettings)
         }
-        .padding(.horizontal, Spacing.reg)
         .padding(.vertical, Spacing.xs)
         .animation(Animations.state, value: isPremium)
     }

@@ -31,7 +31,7 @@ struct HistorySegmentedControl: View {
             }
         }
         .padding(Spacing.xxs)
-        .background(Color.card.opacity(Opacity.muted), in: .capsule)
+        .background(Color.card.opacity(Opacity.medium), in: .capsule)
     }
 }
 

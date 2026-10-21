@@ -30,18 +30,26 @@ struct TemplatePreviewView: View {
         VStack(spacing: 0) {
             TitleHeader(title: viewModel.template?.name, onBack: onBack)
 
-            TemplateCarousel(templates: viewModel.templates, currentIndex: $viewModel.currentIndex, loader: thumbnailLoader)
-                .frame(height: carouselHeight)
-                .padding(.top, Spacing.reg)
+            ScrollView {
+                VStack(spacing: 0) {
+                    TemplateCarousel(
+                        templates: viewModel.templates,
+                        currentIndex: $viewModel.currentIndex,
+                        loader: thumbnailLoader
+                    )
+                    .frame(height: carouselHeight)
+                    .padding(.top, Spacing.reg)
 
-            VStack(alignment: .leading, spacing: Spacing.lg) {
-                photoSlot
-                options
+                    VStack(alignment: .leading, spacing: Spacing.lg) {
+                        photoSlot
+                        options
+                    }
+                    .padding(.top, Spacing.lg)
+                    .padding(.horizontal, Spacing.reg)
+                    .padding(.bottom, Spacing.reg)
+                }
             }
-            .padding(.top, Spacing.lg)
-            .padding(.horizontal, Spacing.reg)
-
-            Spacer(minLength: Spacing.reg)
+            .scrollIndicators(.hidden)
 
             GradientButton(title: "Create", isEnabled: viewModel.canCreate, action: create)
                 .padding(.horizontal, Spacing.reg)

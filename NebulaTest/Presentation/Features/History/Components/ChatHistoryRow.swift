@@ -34,7 +34,7 @@ struct ChatHistoryRow: View {
             }
             .padding(Spacing.reg)
             .frame(height: ControlSize.rowHeight)
-            .background(Color.card.opacity(Opacity.muted), in: .rect(cornerRadius: Radius.md))
+            .background(Color.card.opacity(Opacity.medium), in: .rect(cornerRadius: Radius.md))
             .contentShape(.rect(cornerRadius: Radius.md))
         }
         .buttonStyle(PressableButtonStyle())

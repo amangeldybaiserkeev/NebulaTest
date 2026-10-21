@@ -35,7 +35,7 @@ struct SettingsRow: View {
             }
             .padding(.horizontal, Spacing.reg)
             .frame(height: TouchTarget.minimum)
-            .background(Color.card.opacity(Opacity.muted), in: .capsule)
+            .background(Color.card.opacity(Opacity.medium), in: .capsule)
             .contentShape(.capsule)
         }
         .buttonStyle(PressableButtonStyle())

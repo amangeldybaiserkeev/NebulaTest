@@ -16,8 +16,7 @@ struct MoreButton: View {
             }
             .frame(size: IconSize.xxl)
             .background(Color.white.opacity(Opacity.subtle), in: .circle)
-            .frame(size: TouchTarget.minimum)
-            .contentShape(.rect)
+            .hitTarget(visibleSize: IconSize.xxl)
         }
         .buttonStyle(PressableButtonStyle())
     }

@@ -29,6 +29,7 @@ struct ChatHeaderTitle: View {
                 }
                 Text(date, format: .chatDate)
                     .font(AppFont.caption)
+                    .opacity(Opacity.muted)
             }
             .foregroundStyle(.white)
         }

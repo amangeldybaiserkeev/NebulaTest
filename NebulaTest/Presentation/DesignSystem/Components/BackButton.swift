@@ -9,8 +9,7 @@ struct BackButton: View {
                 .resizable()
                 .frame(size: IconSize.reg)
                 .foregroundStyle(.white)
-                .frame(size: TouchTarget.minimum)
-                .contentShape(.rect)
+                .hitTarget(visibleSize: IconSize.reg)
         }
         .buttonStyle(PressableButtonStyle())
     }

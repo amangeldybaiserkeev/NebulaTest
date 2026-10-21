@@ -6,7 +6,6 @@ struct AssistantMessageBubble: View {
     let onCopy: () -> Void
     let onRegenerate: () -> Void
 
-    private let maxWidth: Double = 334
     private let textOpacity: Double = 0.8
     private let dividerOpacity: Double = 0.1
     private let actionsOpacity: Double = 0.5
@@ -32,12 +31,11 @@ struct AssistantMessageBubble: View {
             .opacity(actionsOpacity)
         }
         .padding(Spacing.reg)
-        .frame(maxWidth: maxWidth, alignment: .leading)
         .background(
             Color.card.opacity(Opacity.half),
             in: .rect(topLeadingRadius: Radius.md, bottomTrailingRadius: Radius.md, topTrailingRadius: Radius.md)
         )
-        .frame(maxWidth: .infinity, alignment: .leading)
+        .padding(.leading, Spacing.sm)
     }
 
     private var attributedText: AttributedString {
@@ -51,8 +49,7 @@ struct AssistantMessageBubble: View {
                 .resizable()
                 .frame(size: IconSize.reg)
                 .foregroundStyle(.white)
-                .frame(size: TouchTarget.minimum)
-                .contentShape(.rect)
+                .hitTarget(visibleSize: IconSize.reg)
         }
         .buttonStyle(PressableButtonStyle())
     }

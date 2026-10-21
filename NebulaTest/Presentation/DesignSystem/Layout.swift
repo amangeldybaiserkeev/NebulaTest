@@ -54,6 +54,7 @@ enum Opacity {
     static let light: Double = 0.15
     static let faint: Double = 0.25
     static let muted: Double = 0.3
+    static let medium: Double = 0.4
     static let half: Double = 0.5
     static let secondary: Double = 0.6
     static let prominent: Double = 0.7

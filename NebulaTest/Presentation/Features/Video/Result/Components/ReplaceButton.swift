@@ -15,7 +15,7 @@ struct ReplaceButton: View {
             .foregroundStyle(.white)
             .padding(.vertical, Spacing.xs)
             .padding(.horizontal, Spacing.sm)
-            .background(Color.card.opacity(Opacity.muted), in: .capsule)
+            .background(Color.card.opacity(Opacity.medium), in: .capsule)
             .background(.ultraThinMaterial, in: .capsule)
         }
         .buttonStyle(PressableButtonStyle())

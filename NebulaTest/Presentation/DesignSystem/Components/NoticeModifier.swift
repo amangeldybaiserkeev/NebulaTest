@@ -41,7 +41,7 @@ struct NoticeModifier: ViewModifier {
         .padding(.vertical, Spacing.lg)
         .padding(.horizontal, Spacing.reg)
         .frame(width: width)
-        .background(Color.card.opacity(Opacity.muted), in: .rect(cornerRadius: Radius.md))
+        .background(Color.card.opacity(Opacity.medium), in: .rect(cornerRadius: Radius.md))
         .background(.ultraThinMaterial, in: .rect(cornerRadius: Radius.md))
     }
 

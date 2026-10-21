@@ -17,7 +17,7 @@ struct PhotoSlot: View {
                     .frame(size: IconSize.lg)
                     .foregroundStyle(.white)
             case .loading:
-                Color.card.opacity(Opacity.muted)
+                Color.card.opacity(Opacity.medium)
                 GradientSpinner()
                     .frame(size: IconSize.lg)
             case .ready(let image):
@@ -35,18 +35,15 @@ struct PhotoSlot: View {
 struct PhotoRemoveButton: View {
     let action: () -> Void
 
-    private let cornerOffset = Spacing.sm + Spacing.xxxs
-
     var body: some View {
         Button(action: action) {
             Image(.icPhotoRemove)
                 .resizable()
                 .frame(size: IconSize.lg)
-                .frame(size: TouchTarget.minimum)
-                .contentShape(.circle)
+                .hitTarget(visibleSize: IconSize.lg)
         }
         .buttonStyle(PressableButtonStyle())
-        .offset(x: cornerOffset, y: -cornerOffset)
+        .offset(x: Spacing.xs, y: -Spacing.xs)
     }
 }
 

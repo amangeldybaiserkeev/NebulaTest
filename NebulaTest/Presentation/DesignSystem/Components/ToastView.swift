@@ -24,7 +24,7 @@ struct ToastView: View {
         }
         .padding(.horizontal, Spacing.reg)
         .padding(.vertical, Spacing.sm)
-        .background(Color.card.opacity(Opacity.muted), in: .capsule)
+        .background(Color.card.opacity(Opacity.medium), in: .capsule)
         .background(.ultraThinMaterial, in: .capsule)
         .overlay {
             Capsule().strokeBorder(Color.white.opacity(Opacity.light), lineWidth: borderWidth)

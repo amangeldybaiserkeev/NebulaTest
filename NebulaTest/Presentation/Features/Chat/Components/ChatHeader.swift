@@ -18,7 +18,7 @@ struct ChatHeader: View {
         }
         .padding(.horizontal, Spacing.reg)
         .frame(height: ControlSize.headerHeight)
-        .background(Color.card.opacity(Opacity.faint).ignoresSafeArea(edges: .top))
+        .background(Color.card.opacity(Opacity.medium).ignoresSafeArea(edges: .top))
     }
 }
 

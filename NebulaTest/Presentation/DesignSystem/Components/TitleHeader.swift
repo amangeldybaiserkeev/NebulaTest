@@ -13,7 +13,7 @@ struct TitleHeader: View {
                     .font(AppFont.navTitle)
                     .foregroundStyle(.white)
                     .lineLimit(1)
-                    .padding(.horizontal, TouchTarget.minimum + Spacing.reg)
+                    .padding(.horizontal, IconSize.reg + Spacing.reg)
             }
             HStack {
                 BackButton(action: onBack)
