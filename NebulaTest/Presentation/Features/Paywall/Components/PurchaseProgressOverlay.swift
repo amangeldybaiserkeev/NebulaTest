@@ -10,6 +10,5 @@ struct PurchaseProgressOverlay: View {
                     .controlSize(.large)
             }
             .transition(.opacity)
-            .accessibilityLabel("Processing purchase")
     }
 }

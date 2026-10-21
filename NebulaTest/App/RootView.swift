@@ -2,7 +2,6 @@ import SwiftUI
 
 struct RootView: View {
     @StateObject private var viewModel: RootViewModel
-    @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
     private let container: AppContainer
 
@@ -26,9 +25,9 @@ struct RootView: View {
                     onClose: viewModel.finishPaywall,
                     onUnlock: viewModel.finishPaywall
                 )
-                    .transition(reduceMotion ? .opacity : .move(edge: .trailing))
+                    .transition(.move(edge: .trailing))
             case .main:
-                MainView()
+                MainFlowView(container: container)
                     .transition(.opacity)
             }
         }

@@ -51,7 +51,7 @@ final class PaywallViewModelTests: XCTestCase {
         await viewModel.purchase()
 
         XCTAssertFalse(viewModel.didUnlock)
-        XCTAssertNil(viewModel.errorMessage)
+        XCTAssertFalse(viewModel.isErrorPresented)
     }
 
     func testFailedRestoreShowsError() async {
@@ -62,6 +62,7 @@ final class PaywallViewModelTests: XCTestCase {
         await viewModel.restore()
 
         XCTAssertFalse(viewModel.didUnlock)
+        XCTAssertTrue(viewModel.isErrorPresented)
         XCTAssertEqual(viewModel.errorMessage, SubscriptionError.nothingToRestore.localizedDescription)
     }
 }

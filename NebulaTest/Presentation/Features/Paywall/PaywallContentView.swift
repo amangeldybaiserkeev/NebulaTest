@@ -12,15 +12,14 @@ struct PaywallContentView: View {
         VStack(spacing: 0) {
             Image(.imgGhostPaywall)
                 .padding(.top, ghostTopPadding)
-                .accessibilityHidden(true)
 
             Text("Create anything\nyou want")
                 .font(AppFont.largeTitle)
                 .foregroundStyle(.white)
                 .multilineTextAlignment(.center)
-                .padding(.top, Spacing.xl)
+                .padding(.top, Spacing.lg)
 
-            VStack(alignment: .leading, spacing: Spacing.sm) {
+            VStack(alignment: .leading, spacing: Spacing.xs) {
                 ForEach(benefits) { benefit in
                     PaywallBenefitRow(benefit: benefit)
                 }

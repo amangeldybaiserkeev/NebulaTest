@@ -12,9 +12,8 @@ struct SplashView: View {
         ZStack {
             Color.appBackground.ignoresSafeArea()
 
-            VStack(spacing: Spacing.xl) {
+            VStack(spacing: Spacing.lg) {
                 Image(.imgGhostSplash)
-                    .accessibilityHidden(true)
 
                 Capsule()
                     .fill(Color.white.opacity(Opacity.subtle))
@@ -24,7 +23,6 @@ struct SplashView: View {
                             .fill(LinearGradient.accent)
                             .frame(width: barWidth * progress, height: barHeight)
                     }
-                    .accessibilityLabel("Loading")
             }
         }
         .onAppear(perform: startProgress)

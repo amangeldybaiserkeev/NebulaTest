@@ -14,9 +14,8 @@ struct OnboardingPageView: View {
                     .scaledToFill()
                     .frame(width: proxy.size.width, height: proxy.size.height)
                     .clipped()
-                    .accessibilityHidden(true)
 
-                VStack(spacing: Spacing.md) {
+                VStack(spacing: Spacing.sm) {
                     Text(page.title)
                         .font(AppFont.title)
                         .foregroundStyle(.white)
@@ -25,7 +24,7 @@ struct OnboardingPageView: View {
                         .foregroundStyle(.white.opacity(Opacity.secondary))
                 }
                 .multilineTextAlignment(.center)
-                .padding(.horizontal, Spacing.screenEdge)
+                .padding(.horizontal, Spacing.reg)
                 .padding(.top, topInset + titleTopPadding)
             }
         }

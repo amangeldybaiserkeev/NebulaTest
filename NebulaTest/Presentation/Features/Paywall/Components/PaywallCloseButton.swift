@@ -11,7 +11,7 @@ struct PaywallCloseButton: View {
             .labelStyle(.iconOnly)
             .font(AppFont.systemCloseIcon)
             .foregroundStyle(.white)
-            .frame(width: ControlSize.touchTarget, height: ControlSize.touchTarget)
+            .frame(size: TouchTarget.minimum)
             .contentShape(.rect)
             .opacity(isVisible ? Opacity.prominent : 0)
             .allowsHitTesting(isVisible)

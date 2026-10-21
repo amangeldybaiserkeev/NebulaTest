@@ -1,7 +1,7 @@
 import SwiftUI
 
 enum Animations {
-    private enum Seconds {
+    enum Seconds {
         static let press: Double = 0.15
         static let state: Double = 0.2
         static let indicator: Double = 0.25

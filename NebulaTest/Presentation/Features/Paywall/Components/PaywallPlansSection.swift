@@ -8,7 +8,7 @@ struct PaywallPlansSection: View {
     private let placeholderCount = 2
 
     var body: some View {
-        VStack(spacing: Spacing.md) {
+        VStack(spacing: Spacing.sm) {
             switch plans {
             case .idle, .loading:
                 ForEach(0..<placeholderCount, id: \.self) { _ in

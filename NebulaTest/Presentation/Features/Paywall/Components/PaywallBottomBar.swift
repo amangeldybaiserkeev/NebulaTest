@@ -14,11 +14,11 @@ struct PaywallBottomBar: View {
             Label("Cancel Anytime", systemImage: "clock.arrow.circlepath")
                 .font(AppFont.systemSmall)
                 .foregroundStyle(.textSecondary)
-                .padding(.vertical, Spacing.sm)
+                .padding(.vertical, Spacing.xs)
 
             GradientButton(title: "Unlock now", isEnabled: isUnlockEnabled, action: onUnlock)
-                .padding(.horizontal, Spacing.screenEdge)
-                .padding(.top, Spacing.xxs)
+                .padding(.horizontal, Spacing.reg)
+                .padding(.top, Spacing.xxxs)
 
             HStack {
                 Button("Privacy Policy", action: onPrivacyPolicy)
@@ -31,9 +31,9 @@ struct PaywallBottomBar: View {
             .font(AppFont.systemLegal)
             .kerning(legalKerning)
             .foregroundStyle(.textSecondary)
-            .padding(.horizontal, Spacing.screenEdge)
-            .padding(.top, Spacing.lg)
-            .padding(.bottom, Spacing.sm)
+            .padding(.horizontal, Spacing.reg)
+            .padding(.top, Spacing.reg)
+            .padding(.bottom, Spacing.xs)
         }
         .background(Color.appBackground)
     }

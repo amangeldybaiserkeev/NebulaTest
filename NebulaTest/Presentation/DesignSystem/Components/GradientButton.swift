@@ -14,7 +14,7 @@ struct GradientButton: View {
                 .frame(height: ControlSize.buttonHeight)
                 .background(
                     isEnabled ? AnyShapeStyle(LinearGradient.accent) : AnyShapeStyle(Color.card),
-                    in: .rect(cornerRadius: Radius.xl)
+                    in: .rect(cornerRadius: Radius.md)
                 )
         }
         .buttonStyle(PressableButtonStyle())
@@ -24,7 +24,7 @@ struct GradientButton: View {
 }
 
 #Preview {
-    VStack(spacing: Spacing.lg) {
+    VStack(spacing: Spacing.reg) {
         GradientButton(title: "Continue") {}
         GradientButton(title: "Create", isEnabled: false) {}
     }

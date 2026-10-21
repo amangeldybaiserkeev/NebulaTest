@@ -8,7 +8,8 @@ struct GlowBackground: View {
         static let glowHeight: Double = 429
         static let glowOffsetX: Double = -78
         static let glowOffsetY: Double = -131
-        static let glowBlur: Double = 100
+        // Figma layer blur radius is roughly twice the Gaussian radius SwiftUI expects.
+        static let glowBlur: Double = 50
         static let leftShadeWidth: Double = 383
         static let leftShadeHeight: Double = 237
         static let leftShadeOffsetX: Double = -19
@@ -17,7 +18,7 @@ struct GlowBackground: View {
         static let rightShadeHeight: Double = 236
         static let rightShadeOffsetX: Double = 316
         static let rightShadeOffsetY: Double = 147
-        static let shadeBlur: Double = 108
+        static let shadeBlur: Double = 54
     }
 
     var body: some View {
@@ -48,7 +49,6 @@ struct GlowBackground: View {
             .clipped()
             .ignoresSafeArea()
             .allowsHitTesting(false)
-            .accessibilityHidden(true)
     }
 }
 

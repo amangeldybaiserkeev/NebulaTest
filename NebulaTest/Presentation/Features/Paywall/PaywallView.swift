@@ -26,8 +26,8 @@ struct PaywallView: View {
                         selectedPlanID: viewModel.selectedPlanID,
                         onSelectPlan: viewModel.selectPlan
                     )
-                    .padding(.horizontal, Spacing.screenEdge)
-                    .padding(.vertical, Spacing.lg)
+                    .padding(.horizontal, Spacing.reg)
+                    .padding(.vertical, Spacing.reg)
                 }
                 .scrollIndicators(.hidden)
 
@@ -51,18 +51,11 @@ struct PaywallView: View {
         .onChange(of: viewModel.didUnlock) { didUnlock in
             if didUnlock { onUnlock() }
         }
-        .alert("Something went wrong", isPresented: errorPresented) {
+        .alert("Something went wrong", isPresented: $viewModel.isErrorPresented) {
             Button("OK", role: .cancel) {}
         } message: {
-            Text(viewModel.errorMessage ?? "")
+            Text(viewModel.errorMessage)
         }
-    }
-
-    private var errorPresented: Binding<Bool> {
-        Binding(
-            get: { viewModel.errorMessage != nil },
-            set: { if !$0 { viewModel.errorMessage = nil } }
-        )
     }
 
     private func purchase() {

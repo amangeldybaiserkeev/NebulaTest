@@ -6,9 +6,9 @@ struct PaywallPlanRowLabel: View {
     private let badgeVerticalPadding: Double = 6
 
     var body: some View {
-        HStack(spacing: Spacing.sm) {
-            VStack(alignment: .leading, spacing: Spacing.xs) {
-                HStack(spacing: Spacing.xxs) {
+        HStack(spacing: Spacing.xs) {
+            VStack(alignment: .leading, spacing: Spacing.xxs) {
+                HStack(spacing: Spacing.xxxs) {
                     Text("\(plan.periodTitle) \(plan.weeklyPrice)")
                         .font(AppFont.bodyMedium)
                     Text("/ week")
@@ -27,7 +27,7 @@ struct PaywallPlanRowLabel: View {
                 Text(badge)
                     .font(AppFont.captionMedium)
                     .foregroundStyle(.white)
-                    .padding(.horizontal, Spacing.lg)
+                    .padding(.horizontal, Spacing.reg)
                     .padding(.vertical, badgeVerticalPadding)
                     .background(LinearGradient.accent, in: .capsule)
             }

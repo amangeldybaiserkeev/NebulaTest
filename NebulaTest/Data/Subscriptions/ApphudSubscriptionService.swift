@@ -11,6 +11,9 @@ final class ApphudSubscriptionService: SubscriptionService {
     private let continuation: AsyncStream<Bool>.Continuation
     private let logger = Logger(subsystem: Bundle.main.bundleIdentifier ?? "NebulaTest", category: "Subscriptions")
     private var products: [String: ApphudProduct] = [:]
+    private var loadedPaywalls: [ApphudPaywall] = []
+    private var paywallWaiters: [CheckedContinuation<[ApphudPaywall], Never>] = []
+    private static let paywallsTimeoutSeconds: Double = 10
 
     init(apiKey: String, paywallID: String) {
         self.paywallID = paywallID
@@ -79,14 +82,23 @@ final class ApphudSubscriptionService: SubscriptionService {
         return await paywalls().first { $0.identifier == paywallID }
     }
 
-    // The Apphud project uses the legacy paywall list without placements, so the
-    // deprecated paywalls callback is the only way to reach the "main" paywall.
+    // The Apphud project of this task has a plain paywall list and no placements,
+    // so the paywall is taken from the delegate callback that delivers that list.
     private func paywalls() async -> [ApphudPaywall] {
-        await withCheckedContinuation { waiter in
-            Apphud.paywallsDidLoadCallback { paywalls, _ in
-                waiter.resume(returning: paywalls)
+        if !loadedPaywalls.isEmpty { return loadedPaywalls }
+        return await withCheckedContinuation { waiter in
+            paywallWaiters.append(waiter)
+            Task { [weak self] in
+                try? await Task.sleep(for: .seconds(Self.paywallsTimeoutSeconds))
+                self?.resumePaywallWaiters()
             }
         }
+    }
+
+    private func resumePaywallWaiters() {
+        let waiters = paywallWaiters
+        paywallWaiters.removeAll()
+        waiters.forEach { $0.resume(returning: loadedPaywalls) }
     }
 }
 
@@ -98,13 +110,8 @@ extension ApphudSubscriptionService: ApphudDelegate {
 
     nonisolated func paywallsDidFullyLoad(paywalls: [ApphudPaywall]) {
         Task { @MainActor in
-            logger.debug("Paywalls loaded: \(paywalls.map(\.identifier), privacy: .public)")
-        }
-    }
-
-    nonisolated func placementsDidFullyLoad(placements: [ApphudPlacement]) {
-        Task { @MainActor in
-            logger.debug("Placements loaded: \(placements.map(\.identifier), privacy: .public)")
+            loadedPaywalls = paywalls
+            resumePaywallWaiters()
         }
     }
 }

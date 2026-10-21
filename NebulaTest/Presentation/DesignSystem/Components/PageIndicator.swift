@@ -19,8 +19,6 @@ struct PageIndicator: View {
             }
         }
         .animation(Animations.indicator, value: currentPage)
-        .accessibilityElement(children: .ignore)
-        .accessibilityLabel("Page \(currentPage + 1) of \(pageCount)")
     }
 }
 

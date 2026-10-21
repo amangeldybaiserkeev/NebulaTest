@@ -22,7 +22,7 @@ struct OnboardingView: View {
             VStack(spacing: controlsSpacing) {
                 PageIndicator(pageCount: pages.count, currentPage: currentPage)
                 GradientButton(title: "Continue", action: advance)
-                    .padding(.horizontal, Spacing.screenEdge)
+                    .padding(.horizontal, Spacing.reg)
             }
         }
         .background(Color.appBackground.ignoresSafeArea())

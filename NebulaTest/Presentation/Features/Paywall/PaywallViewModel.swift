@@ -6,7 +6,8 @@ final class PaywallViewModel: ObservableObject {
     @Published private(set) var plans: LoadState<[PaywallPlanItem]> = .idle
     @Published var selectedPlanID: String?
     @Published private(set) var isPurchasing = false
-    @Published var errorMessage: String?
+    @Published var isErrorPresented = false
+    @Published private(set) var errorMessage = ""
     @Published private(set) var didUnlock = false
 
     private let subscriptionService: SubscriptionService
@@ -20,6 +21,7 @@ final class PaywallViewModel: ObservableObject {
         plans = .loading
         do {
             let items = PaywallPlanItemBuilder.items(from: try await subscriptionService.loadPlans())
+            guard !items.isEmpty else { throw SubscriptionError.paywallNotFound }
             plans = .loaded(items)
             if selectedPlanID == nil { selectedPlanID = items.first?.id }
         } catch {
@@ -51,6 +53,7 @@ final class PaywallViewModel: ObservableObject {
             return
         } catch {
             errorMessage = error.localizedDescription
+            isErrorPresented = true
         }
     }
 }

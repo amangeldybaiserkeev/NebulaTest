@@ -10,18 +10,17 @@ struct PaywallPlanRow: View {
     var body: some View {
         Button(action: onSelect) {
             PaywallPlanRowLabel(plan: plan)
-                .padding(.leading, Spacing.xl)
-                .padding(.trailing, Spacing.lg)
-                .padding(.vertical, Spacing.lg)
+                .padding(.leading, Spacing.lg)
+                .padding(.trailing, Spacing.reg)
+                .padding(.vertical, Spacing.reg)
                 .frame(height: ControlSize.rowHeight)
                 .background {
-                    RoundedRectangle(cornerRadius: Radius.xl)
+                    RoundedRectangle(cornerRadius: Radius.md)
                         .strokeBorder(borderStyle, lineWidth: borderWidth)
                 }
-                .contentShape(.rect(cornerRadius: Radius.xl))
+                .contentShape(.rect(cornerRadius: Radius.md))
         }
         .buttonStyle(PressableButtonStyle())
-        .accessibilityAddTraits(isSelected ? .isSelected : [])
         .animation(Animations.state, value: isSelected)
     }
 
@@ -31,7 +30,7 @@ struct PaywallPlanRow: View {
 }
 
 #Preview {
-    VStack(spacing: Spacing.md) {
+    VStack(spacing: Spacing.sm) {
         PaywallPlanRow(plan: PaywallPlanItem.placeholders[0], isSelected: true) {}
         PaywallPlanRow(plan: PaywallPlanItem.placeholders[1], isSelected: false) {}
     }
