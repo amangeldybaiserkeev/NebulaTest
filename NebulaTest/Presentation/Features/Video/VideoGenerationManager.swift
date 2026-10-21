@@ -50,6 +50,10 @@ final class VideoGenerationManager: ObservableObject {
         track(generation, image: image)
     }
 
+    func sourceImage(id: UUID) -> Data? {
+        try? store.imageData(id: id)
+    }
+
     func markSeen(id: UUID) {
         guard var generation = generation(id: id), generation.isNew else { return }
         generation.isNew = false

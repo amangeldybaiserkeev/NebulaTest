@@ -9,3 +9,9 @@ extension FormatStyle where Self == Date.VerbatimFormatStyle {
         )
     }
 }
+
+extension FormatStyle where Self == Date.FormatStyle {
+    static var historyDay: Date.FormatStyle {
+        .dateTime.month(.wide).day()
+    }
+}
