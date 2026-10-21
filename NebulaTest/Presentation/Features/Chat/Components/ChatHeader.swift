@@ -8,15 +8,7 @@ struct ChatHeader: View {
 
     var body: some View {
         HStack(spacing: Spacing.lg) {
-            Button(action: onBack) {
-                Image(.icBackArrow)
-                    .resizable()
-                    .frame(size: IconSize.reg)
-                    .foregroundStyle(.white)
-                    .frame(size: TouchTarget.minimum)
-                    .contentShape(.rect)
-            }
-            .buttonStyle(PressableButtonStyle())
+            BackButton(action: onBack)
 
             ChatHeaderTitle(date: date, isPinned: isPinned)
 

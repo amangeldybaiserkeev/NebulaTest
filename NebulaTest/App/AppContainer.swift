@@ -6,6 +6,10 @@ final class AppContainer {
     let subscriptionService: SubscriptionService
     let chatAPI: ChatAPI
     let chatStore: ChatStore
+    let videoStore: VideoStore
+    let templateCatalog: TemplateCatalog
+    let generationManager: VideoGenerationManager
+    let thumbnailLoader: VideoThumbnailLoader
 
     init() {
         onboardingStore = UserDefaultsOnboardingStateStore()
@@ -15,16 +19,28 @@ final class AppContainer {
         )
         self.subscriptionService = subscriptionService
 
-        let chatClient = URLSessionHTTPClient(
-            configuration: APIConfiguration(
-                baseURL: AppConfig.API.chatBaseURL,
-                bearerToken: AppConfig.API.bearerToken,
-                applicationID: AppConfig.API.applicationID,
-                userID: { MainActor.assumeIsolated { subscriptionService.userID } }
+        func makeClient(baseURL: URL) -> HTTPClient {
+            URLSessionHTTPClient(
+                configuration: APIConfiguration(
+                    baseURL: baseURL,
+                    bearerToken: AppConfig.API.bearerToken,
+                    applicationID: AppConfig.API.applicationID,
+                    userID: { MainActor.assumeIsolated { subscriptionService.userID } }
+                )
             )
+        }
+        chatAPI = DolaChatAPI(client: makeClient(baseURL: AppConfig.API.chatBaseURL))
+        let videoAPI = PixverseVideoAPI(
+            client: makeClient(baseURL: AppConfig.API.videoBaseURL),
+            applicationID: AppConfig.API.applicationID
         )
-        chatAPI = DolaChatAPI(client: chatClient)
-        chatStore = CoreDataChatStore(container: PersistenceController().container)
+
+        let persistence = PersistenceController()
+        chatStore = CoreDataChatStore(container: persistence.container)
+        videoStore = CoreDataVideoStore(container: persistence.container)
+        templateCatalog = TemplateCatalog(api: videoAPI)
+        generationManager = VideoGenerationManager(api: videoAPI, store: videoStore)
+        thumbnailLoader = VideoThumbnailLoader()
     }
 
     func makeRootViewModel() -> RootViewModel {
@@ -41,5 +57,22 @@ final class AppContainer {
 
     func makeChatViewModel(chatID: UUID?) -> ChatViewModel {
         ChatViewModel(chatID: chatID, api: chatAPI, store: chatStore, subscriptionService: subscriptionService)
+    }
+
+    func makeTemplatesViewModel() -> TemplatesViewModel {
+        TemplatesViewModel(catalog: templateCatalog)
+    }
+
+    func makeTemplatePreviewViewModel(templateID: Int, category: String) -> TemplatePreviewViewModel {
+        TemplatePreviewViewModel(
+            templates: templateCatalog.templates(in: category),
+            selectedTemplateID: templateID,
+            generationManager: generationManager,
+            subscriptionService: subscriptionService
+        )
+    }
+
+    func makeVideoResultViewModel(generationID: UUID) -> VideoResultViewModel {
+        VideoResultViewModel(generationID: generationID, generationManager: generationManager, saver: VideoSaver())
     }
 }

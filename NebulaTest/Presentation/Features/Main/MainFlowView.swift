@@ -53,15 +53,60 @@ struct MainFlowView: View {
                 viewModel: container.makeChatViewModel(chatID: id),
                 container: container,
                 composerNamespace: nil,
-                onClose: { path.removeLast() }
+                onClose: pop
             )
-        case .videoTemplates:
-            Text("AI Video")
+        case .videoTemplates, .templatePreview, .generating, .videoResult:
+            videoDestination(for: route)
         case .history:
             Text("History")
         case .settings:
             Text("Settings")
         }
+    }
+
+    @ViewBuilder
+    private func videoDestination(for route: AppRoute) -> some View {
+        switch route {
+        case .videoTemplates:
+            TemplatesView(
+                viewModel: container.makeTemplatesViewModel(),
+                thumbnailLoader: container.thumbnailLoader,
+                onBack: pop,
+                onSelect: { path.append(.templatePreview(templateID: $0.id, category: $0.category)) }
+            )
+        case .templatePreview(let templateID, let category):
+            TemplatePreviewView(
+                viewModel: container.makeTemplatePreviewViewModel(templateID: templateID, category: category),
+                container: container,
+                thumbnailLoader: container.thumbnailLoader,
+                onBack: pop,
+                onCreated: { path.append(.generating(id: $0.id)) }
+            )
+        case .generating(let id):
+            GeneratingView(
+                manager: container.generationManager,
+                generationID: id,
+                onBack: pop,
+                onFinished: { showResult(for: $0.id) }
+            )
+        case .videoResult(let id):
+            VideoResultView(
+                viewModel: container.makeVideoResultViewModel(generationID: id),
+                onBack: pop,
+                onReplace: pop
+            )
+        default:
+            EmptyView()
+        }
+    }
+
+    private func pop() {
+        path.removeLast()
+    }
+
+    private func showResult(for generationID: UUID) {
+        path.removeLast()
+        path.append(.videoResult(id: generationID))
     }
 
     private func openNewChat() {

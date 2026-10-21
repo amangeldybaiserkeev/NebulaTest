@@ -6,6 +6,8 @@
 	<string>$(APPHUD_API_KEY)</string>
 	<key>API_BEARER_TOKEN</key>
 	<string>$(API_BEARER_TOKEN)</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>Needed to save generated videos to your Photos.</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Inter-Regular.ttf</string>

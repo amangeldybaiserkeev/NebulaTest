@@ -49,6 +49,7 @@ enum ControlSize {
 }
 
 enum Opacity {
+    static let invisible: Double = 0.001
     static let subtle: Double = 0.08
     static let light: Double = 0.15
     static let faint: Double = 0.25
