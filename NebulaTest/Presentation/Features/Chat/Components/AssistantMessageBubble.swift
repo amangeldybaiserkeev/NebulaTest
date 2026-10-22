@@ -35,7 +35,7 @@ struct AssistantMessageBubble: View {
             Color.card.opacity(Opacity.half),
             in: .rect(topLeadingRadius: Radius.md, bottomTrailingRadius: Radius.md, topTrailingRadius: Radius.md)
         )
-        .padding(.leading, Spacing.sm)
+        .padding(.horizontal, Spacing.sm)
     }
 
     private var attributedText: AttributedString {
