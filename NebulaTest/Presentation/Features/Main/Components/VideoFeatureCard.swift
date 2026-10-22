@@ -27,6 +27,7 @@ struct VideoFeatureCard: View {
                         startPoint: UnitPoint(x: gradientStartX, y: gradientStartY),
                         endPoint: UnitPoint(x: 1, y: gradientEndY)
                     )
+                    .opacity(Opacity.strong)
                     Image(.imgMainVideoCard)
                         .opacity(Opacity.half)
                         .offset(x: swooshOffsetX, y: swooshOffsetY)

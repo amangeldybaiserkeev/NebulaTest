@@ -48,9 +48,10 @@ struct VideoResultView: View {
         }
     }
 
+    // Portrait fills the whole area as in the design; wider formats keep their ratio at full width.
     private func fit(_ aspectRatio: Double, in size: CGSize) -> CGSize {
-        let width = min(size.width, size.height * aspectRatio)
-        return CGSize(width: width, height: width / aspectRatio)
+        guard aspectRatio >= 1 else { return size }
+        return CGSize(width: size.width, height: size.width / aspectRatio)
     }
 
     private func share() {

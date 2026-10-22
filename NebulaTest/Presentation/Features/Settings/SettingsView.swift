@@ -24,11 +24,13 @@ struct SettingsView: View {
                 VStack(spacing: groupSpacing) {
                     supportGroup
                     purchasesGroup
-                    infoGroup
-                    Text("App Version: \(viewModel.appVersion)")
-                        .font(AppFont.systemFootnote)
-                        .foregroundStyle(.white.opacity(Opacity.secondary))
-                        .padding(.vertical, Spacing.reg)
+                    VStack(spacing: Spacing.xs) {
+                        infoGroup
+                        Text("App Version: \(viewModel.appVersion)")
+                            .font(AppFont.systemFootnote)
+                            .foregroundStyle(.white.opacity(Opacity.secondary))
+                            .padding(.vertical, Spacing.reg)
+                    }
                 }
                 .padding(.top, Spacing.reg)
                 .padding(.bottom, Spacing.reg)

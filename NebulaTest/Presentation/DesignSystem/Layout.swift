@@ -58,5 +58,6 @@ enum Opacity {
     static let half: Double = 0.5
     static let secondary: Double = 0.6
     static let prominent: Double = 0.7
+    static let strong: Double = 0.8
     static let pressed: Double = 0.85
 }

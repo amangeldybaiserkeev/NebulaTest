@@ -8,7 +8,8 @@ struct ResultPlayer: View {
 
     @State private var player: AVPlayer
 
-    private let playIconSize: Double = 56
+    private let playIconWidth: Double = 39
+    private let playIconHeight: Double = 45
 
     init(url: URL, isPlaying: Bool, onReplace: @escaping () -> Void) {
         self.url = url
@@ -28,7 +29,7 @@ struct ResultPlayer: View {
                     Color.black.opacity(Opacity.muted)
                     Image(.icPlay56)
                         .resizable()
-                        .frame(size: playIconSize)
+                        .frame(width: playIconWidth, height: playIconHeight)
                         .foregroundStyle(.white)
                 }
             }
