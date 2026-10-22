@@ -23,6 +23,7 @@ struct StatusBadge: View {
         .padding(.vertical, Spacing.xxs)
         .padding(.leading, leadingPadding)
         .padding(.trailing, trailingPadding)
+        .padding(borderWidth)
         .background(Color.appBackground.opacity(backgroundOpacity), in: .capsule)
         .overlay {
             Capsule().strokeBorder(color.opacity(Opacity.half), lineWidth: borderWidth)

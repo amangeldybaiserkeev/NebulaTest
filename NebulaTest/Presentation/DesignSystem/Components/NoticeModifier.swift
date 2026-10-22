@@ -22,7 +22,7 @@ struct NoticeModifier: ViewModifier {
     }
 
     private func card(_ notice: Toast) -> some View {
-        VStack(spacing: Spacing.xs) {
+        VStack(spacing: Spacing.sm) {
             Image(notice.style == .success ? .icSavedCheck40 : .icSavedError40)
                 .resizable()
                 .frame(size: IconSize.xxl)

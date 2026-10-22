@@ -14,6 +14,7 @@ struct VideoHistoryCard: View {
     private let retryVerticalPadding: Double = 7
     private let retryHorizontalPadding: Double = 14
     private let smallFontSize: Double = 13
+    private let spinnerScale: Double = 1.6
 
     var body: some View {
         Button(action: onOpen) {
@@ -49,7 +50,10 @@ struct VideoHistoryCard: View {
         case .generating:
             Color.appBackground.opacity(dimOpacity)
             VStack(spacing: Spacing.xs) {
-                ProgressView().tint(.white)
+                ProgressView()
+                    .tint(.white)
+                    .scaleEffect(spinnerScale)
+                    .frame(size: IconSize.lg)
                 Text("Generating…")
                     .font(AppFont.custom(smallFontSize, weight: .medium))
                     .foregroundStyle(.white.opacity(textOpacity))
@@ -86,4 +90,35 @@ struct VideoHistoryCard: View {
             }
         }
     }
+}
+
+#Preview {
+    let states: [VideoGeneration.Status] = [
+        .generating,
+        .failed("Something went wrong"),
+        .finished(URL(fileURLWithPath: "/dev/null"))
+    ]
+    return HStack(alignment: .top, spacing: Spacing.xs) {
+        ForEach(Array(states.enumerated()), id: \.offset) { _, status in
+            VideoHistoryCard(
+                generation: VideoGeneration(
+                    id: UUID(),
+                    remoteID: nil,
+                    templateID: 1,
+                    templateName: "Clay",
+                    format: .portrait,
+                    quality: "720p",
+                    status: status,
+                    createdAt: .now,
+                    isNew: true
+                ),
+                previewImage: UIImage(named: "img_onboarding_2_bg"),
+                thumbnailLoader: VideoThumbnailLoader(),
+                onOpen: {},
+                onRetry: {}
+            )
+        }
+    }
+    .padding(Spacing.reg)
+    .background(Color.appBackground)
 }

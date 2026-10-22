@@ -13,7 +13,7 @@ enum AppConfig {
         static let videoBaseURL = url("https://nebulaapps.site/pixverse")
     }
 
-    // The task does not provide legal pages or a support address; these are placeholders on the API domain.
+    // Placeholders
     enum Links {
         static let privacyPolicy = url("https://nebulaapps.site/privacy")
         static let termsOfUse = url("https://nebulaapps.site/terms")
