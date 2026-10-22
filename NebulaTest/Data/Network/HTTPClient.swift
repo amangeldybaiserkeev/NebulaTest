@@ -8,26 +8,27 @@ struct APIConfiguration: Sendable {
     let baseURL: URL
     let bearerToken: String
     let applicationID: String
-    let userID: @Sendable () -> String
+    let userID: @MainActor @Sendable () -> String
 }
 
 final class URLSessionHTTPClient: HTTPClient {
     private let session: URLSession
     private let configuration: APIConfiguration
-    private let decoder: JSONDecoder
+    private let decoder = JSONDecoder()
 
     init(configuration: APIConfiguration, session: URLSession = .shared) {
         self.configuration = configuration
         self.session = session
-        decoder = JSONDecoder()
-        decoder.dateDecodingStrategy = .custom(Self.decodeDate)
     }
 
     func send<Response: Decodable>(_ endpoint: Endpoint) async throws -> Response {
-        let request = try makeRequest(for: endpoint)
+        let userID = await configuration.userID()
+        let request = try makeRequest(for: endpoint, userID: userID)
         let (data, response): (Data, URLResponse)
         do {
             (data, response) = try await session.data(for: request)
+        } catch let error as URLError where error.code == .cancelled {
+            throw CancellationError()
         } catch {
             throw APIError.network(error.localizedDescription)
         }
@@ -39,14 +40,14 @@ final class URLSessionHTTPClient: HTTPClient {
         }
     }
 
-    private func makeRequest(for endpoint: Endpoint) throws -> URLRequest {
+    private func makeRequest(for endpoint: Endpoint, userID: String) throws -> URLRequest {
         guard var components = URLComponents(
             url: configuration.baseURL.appending(path: endpoint.path),
             resolvingAgainstBaseURL: false
         ) else { throw APIError.invalidURL }
 
         var query = endpoint.query
-        query["user_id"] = configuration.userID()
+        query["user_id"] = userID
         query["app_id"] = configuration.applicationID
         components.queryItems = query.sorted { $0.key < $1.key }.map { URLQueryItem(name: $0.key, value: $0.value) }
         guard let url = components.url else { throw APIError.invalidURL }
@@ -78,15 +79,5 @@ final class URLSessionHTTPClient: HTTPClient {
         case HTTPStatus.notFound: throw APIError.notFound
         default: throw APIError.server(statusCode: http.statusCode)
         }
-    }
-
-    private static func decodeDate(from decoder: Decoder) throws -> Date {
-        let string = try decoder.singleValueContainer().decode(String.self)
-        let strategy = Date.ISO8601FormatStyle(timeZone: .current)
-        if let date = try? Date(string, strategy: strategy) { return date }
-        if let date = try? Date(string, strategy: strategy.time(includingFractionalSeconds: true)) { return date }
-        throw DecodingError.dataCorrupted(
-            DecodingError.Context(codingPath: decoder.codingPath, debugDescription: "Unsupported date: \(string)")
-        )
     }
 }

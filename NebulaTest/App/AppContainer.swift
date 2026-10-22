@@ -25,7 +25,7 @@ final class AppContainer {
                     baseURL: baseURL,
                     bearerToken: AppConfig.API.bearerToken,
                     applicationID: AppConfig.API.applicationID,
-                    userID: { MainActor.assumeIsolated { subscriptionService.userID } }
+                    userID: { subscriptionService.userID }
                 )
             )
         }

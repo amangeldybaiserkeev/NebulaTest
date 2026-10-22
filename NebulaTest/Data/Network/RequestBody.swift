@@ -2,6 +2,6 @@ import Foundation
 
 enum RequestBody {
     case none
-    case json(Encodable)
+    case json(any Encodable)
     case multipart(MultipartForm)
 }
