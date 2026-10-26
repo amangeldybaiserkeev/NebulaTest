@@ -17,7 +17,9 @@ struct VideoHistoryCard: View {
     private let spinnerScale: Double = 1.6
 
     var body: some View {
-        Button(action: onOpen) {
+        Button {
+            if generation.videoURL != nil { onOpen() }
+        } label: {
             Color.card
                 .aspectRatio(generation.format.aspectRatio, contentMode: .fit)
                 .overlay { preview }
@@ -27,7 +29,6 @@ struct VideoHistoryCard: View {
                 .contentShape(.rect(cornerRadius: Radius.sm))
         }
         .buttonStyle(PressableButtonStyle())
-        .disabled(generation.videoURL == nil)
     }
 
     @ViewBuilder

@@ -21,11 +21,11 @@ struct PaywallBottomBar: View {
                 .padding(.top, Spacing.xxxs)
 
             HStack {
-                Button("Privacy Policy", action: onPrivacyPolicy)
+                legalButton("Privacy Policy", action: onPrivacyPolicy)
                     .frame(maxWidth: .infinity, alignment: .leading)
-                Button("Restore Purchases", action: onRestore)
+                legalButton("Restore Purchases", action: onRestore)
                     .frame(maxWidth: .infinity)
-                Button("Terms of Use", action: onTermsOfUse)
+                legalButton("Terms of Use", action: onTermsOfUse)
                     .frame(maxWidth: .infinity, alignment: .trailing)
             }
             .font(AppFont.systemLegal)
@@ -36,6 +36,12 @@ struct PaywallBottomBar: View {
             .padding(.bottom, Spacing.xs)
         }
         .background(Color.appBackground)
+    }
+
+    private func legalButton(_ title: String, action: @escaping () -> Void) -> some View {
+        Button(action: action) {
+            Text(title).hitTarget(visibleSize: AppFont.Size.legal)
+        }
     }
 }
 

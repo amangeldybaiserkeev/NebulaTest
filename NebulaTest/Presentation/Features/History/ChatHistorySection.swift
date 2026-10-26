@@ -1,10 +1,9 @@
 import Foundation
 
 struct ChatHistorySection: Identifiable, Equatable {
+    let id: String
     let title: String
     let chats: [Chat]
-
-    var id: String { title }
 
     static func build(from chats: [Chat], now: Date = .now, calendar: Calendar = .current) -> [Self] {
         let sorted = chats.sorted { $0.updatedAt > $1.updatedAt }
@@ -12,7 +11,7 @@ struct ChatHistorySection: Identifiable, Equatable {
 
         let pinned = sorted.filter(\.isPinned)
         if !pinned.isEmpty {
-            sections.append(Self(title: "Pinned", chats: pinned))
+            sections.append(Self(id: "pinned", title: "Pinned", chats: pinned))
         }
 
         var days: [Date] = []
@@ -23,7 +22,11 @@ struct ChatHistorySection: Identifiable, Equatable {
             chatsByDay[day, default: []].append(chat)
         }
         for day in days {
-            sections.append(Self(title: title(for: day, now: now, calendar: calendar), chats: chatsByDay[day] ?? []))
+            sections.append(Self(
+                id: day.formatted(.iso8601),
+                title: title(for: day, now: now, calendar: calendar),
+                chats: chatsByDay[day] ?? []
+            ))
         }
         return sections
     }

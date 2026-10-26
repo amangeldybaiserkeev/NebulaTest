@@ -17,7 +17,7 @@ struct TemplateCarousel: View {
             let step = cardWidth + Spacing.reg
             HStack(spacing: Spacing.reg) {
                 ForEach(Array(templates.enumerated()), id: \.element.id) { index, template in
-                    card(template, isCurrent: index == currentIndex)
+                    card(template, distance: abs(index - currentIndex))
                         .frame(width: cardWidth)
                 }
             }
@@ -41,10 +41,14 @@ struct TemplateCarousel: View {
     }
 
     @ViewBuilder
-    private func card(_ template: VideoTemplate, isCurrent: Bool) -> some View {
+    private func card(_ template: VideoTemplate, distance: Int) -> some View {
         ZStack {
-            TemplateThumbnail(url: template.previewURL, loader: loader)
-            if isCurrent {
+            if distance <= 1 {
+                TemplateThumbnail(url: template.previewURL, loader: loader)
+            } else {
+                Color.card
+            }
+            if distance == 0 {
                 LoopingVideoPlayer(url: template.previewURL)
             }
         }

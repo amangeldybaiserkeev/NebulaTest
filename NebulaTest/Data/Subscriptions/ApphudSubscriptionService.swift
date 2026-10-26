@@ -5,10 +5,8 @@ import StoreKit
 
 @MainActor
 final class ApphudSubscriptionService: SubscriptionService {
-    let premiumUpdates: AsyncStream<Bool>
-
     private let paywallID: String
-    private let continuation: AsyncStream<Bool>.Continuation
+    private let broadcaster = StreamBroadcaster<Bool>()
     private let logger = Logger(subsystem: Bundle.main.bundleIdentifier ?? "NebulaTest", category: "Subscriptions")
     private var products: [String: ApphudProduct] = [:]
     private var loadedPaywalls: [ApphudPaywall] = []
@@ -17,7 +15,6 @@ final class ApphudSubscriptionService: SubscriptionService {
 
     init(apiKey: String, paywallID: String) {
         self.paywallID = paywallID
-        (premiumUpdates, continuation) = AsyncStream.makeStream(of: Bool.self)
         #if DEBUG
         Apphud.enableDebugLogs()
         #endif
@@ -27,6 +24,10 @@ final class ApphudSubscriptionService: SubscriptionService {
 
     var userID: String {
         Apphud.userID()
+    }
+
+    var premiumUpdates: AsyncStream<Bool> {
+        broadcaster.makeStream()
     }
 
     var isPremium: Bool {
@@ -58,13 +59,13 @@ final class ApphudSubscriptionService: SubscriptionService {
         let result = await Apphud.purchase(product)
         if let error = result.error, Self.isUserCancellation(error) { throw CancellationError() }
         guard result.success else { throw SubscriptionError.purchaseFailed }
-        continuation.yield(true)
+        broadcaster.send(true)
     }
 
     func restore() async throws {
-        let error = await Apphud.restorePurchases()
-        guard error == nil, Apphud.hasActiveSubscription() else { throw SubscriptionError.nothingToRestore }
-        continuation.yield(true)
+        if await Apphud.restorePurchases() != nil { throw SubscriptionError.restoreFailed }
+        guard Apphud.hasActiveSubscription() else { throw SubscriptionError.nothingToRestore }
+        broadcaster.send(true)
     }
 
     private static func isUserCancellation(_ error: Error) -> Bool {
@@ -105,7 +106,7 @@ final class ApphudSubscriptionService: SubscriptionService {
 extension ApphudSubscriptionService: ApphudDelegate {
     nonisolated func apphudSubscriptionsUpdated(_ subscriptions: [ApphudSubscription]) {
         let isActive = subscriptions.contains { $0.isActive() }
-        Task { @MainActor in continuation.yield(isActive) }
+        Task { @MainActor in broadcaster.send(isActive) }
     }
 
     nonisolated func paywallsDidFullyLoad(paywalls: [ApphudPaywall]) {

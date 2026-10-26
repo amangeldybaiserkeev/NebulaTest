@@ -7,13 +7,25 @@ struct GeneratingView: View {
     let onBack: () -> Void
     let onFinished: (VideoGeneration) -> Void
 
-    @State private var toast: Toast?
-
     private let loaderSize: Double = 200
 
     var body: some View {
         VStack(spacing: 0) {
             TitleHeader(onBack: onBack)
+            if let message = failureMessage {
+                ErrorStateView(message: message, onRetry: retry)
+            } else {
+                loader
+            }
+        }
+        .background(Color.appBackground.ignoresSafeArea())
+        .toolbar(.hidden, for: .navigationBar)
+        .onAppear(perform: handleStatus)
+        .onChange(of: manager.generation(id: generationID)?.status) { _ in handleStatus() }
+    }
+
+    private var loader: some View {
+        VStack(spacing: 0) {
             Spacer()
             VStack(spacing: Spacing.xxxl) {
                 LottieView(animation: .named("generating_loader"))
@@ -31,22 +43,19 @@ struct GeneratingView: View {
             }
             Spacer()
         }
-        .background(Color.appBackground.ignoresSafeArea())
-        .toast($toast)
-        .toolbar(.hidden, for: .navigationBar)
-        .onAppear(perform: handleStatus)
-        .onChange(of: manager.generation(id: generationID)?.status) { _ in handleStatus() }
+    }
+
+    private var failureMessage: String? {
+        guard case .failed(let message) = manager.generation(id: generationID)?.status else { return nil }
+        return message.isEmpty ? "Something went wrong" : message
     }
 
     private func handleStatus() {
-        guard let generation = manager.generation(id: generationID) else { return }
-        switch generation.status {
-        case .generating:
-            break
-        case .finished:
-            onFinished(generation)
-        case .failed(let message):
-            toast = Toast(style: .error, title: message)
-        }
+        guard let generation = manager.generation(id: generationID), case .finished = generation.status else { return }
+        onFinished(generation)
+    }
+
+    private func retry() {
+        try? manager.retry(id: generationID)
     }
 }

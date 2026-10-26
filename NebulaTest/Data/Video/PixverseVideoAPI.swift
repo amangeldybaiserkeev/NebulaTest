@@ -34,10 +34,10 @@ final class PixverseVideoAPI: VideoAPI {
         case "success":
             guard let string = response.videoUrl, let url = URL(string: string) else { throw APIError.decoding }
             return .success(url)
-        case "error":
-            return .error
-        default:
+        case "generating":
             return .generating
+        default:
+            return .error
         }
     }
 }

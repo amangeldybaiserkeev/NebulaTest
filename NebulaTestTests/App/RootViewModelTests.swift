@@ -5,7 +5,7 @@ import XCTest
 final class RootViewModelTests: XCTestCase {
     func testFirstLaunchGoesToOnboardingAfterSplash() async {
         let store = MockOnboardingStateStore(hasCompletedOnboarding: false)
-        let viewModel = RootViewModel(onboardingStore: store)
+        let viewModel = RootViewModel(onboardingStore: store, splashDuration: .zero)
 
         await viewModel.start()
 
@@ -14,7 +14,7 @@ final class RootViewModelTests: XCTestCase {
 
     func testReturningUserSkipsOnboarding() async {
         let store = MockOnboardingStateStore(hasCompletedOnboarding: true)
-        let viewModel = RootViewModel(onboardingStore: store)
+        let viewModel = RootViewModel(onboardingStore: store, splashDuration: .zero)
 
         await viewModel.start()
 
@@ -23,7 +23,7 @@ final class RootViewModelTests: XCTestCase {
 
     func testCompletingOnboardingPersistsAndShowsPaywall() {
         let store = MockOnboardingStateStore()
-        let viewModel = RootViewModel(onboardingStore: store)
+        let viewModel = RootViewModel(onboardingStore: store, splashDuration: .zero)
 
         viewModel.completeOnboarding()
 

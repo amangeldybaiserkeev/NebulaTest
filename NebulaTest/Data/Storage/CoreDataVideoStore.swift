@@ -6,14 +6,15 @@ final class CoreDataVideoStore: VideoStore {
         case generationNotFound
     }
 
-    let changes: AsyncStream<Void>
-
     private let context: NSManagedObjectContext
-    private let continuation: AsyncStream<Void>.Continuation
+    private let broadcaster = StreamBroadcaster<Void>()
 
     init(container: NSPersistentContainer) {
         context = container.viewContext
-        (changes, continuation) = AsyncStream.makeStream(of: Void.self)
+    }
+
+    var changes: AsyncStream<Void> {
+        broadcaster.makeStream()
     }
 
     func generations() throws -> [VideoGeneration] {
@@ -67,8 +68,13 @@ final class CoreDataVideoStore: VideoStore {
 
     private func save() throws {
         guard context.hasChanges else { return }
-        try context.save()
-        continuation.yield()
+        do {
+            try context.save()
+        } catch {
+            context.rollback()
+            throw error
+        }
+        broadcaster.send(())
     }
 }
 

@@ -12,9 +12,17 @@ final class VideoGenerationManagerTests: XCTestCase {
         VideoGenerationManager(api: api, store: store, pollInterval: .milliseconds(10))
     }
 
-    private func waitUntilFinished(_ manager: VideoGenerationManager, id: UUID) async {
+    private func waitUntilFinished(
+        _ manager: VideoGenerationManager,
+        id: UUID,
+        file: StaticString = #filePath,
+        line: UInt = #line
+    ) async {
         for _ in 0..<100 where manager.generation(id: id)?.status == .generating {
             try? await Task.sleep(for: .milliseconds(10))
+        }
+        if manager.generation(id: id)?.status == .generating {
+            XCTFail("Generation did not finish in time", file: file, line: line)
         }
     }
 

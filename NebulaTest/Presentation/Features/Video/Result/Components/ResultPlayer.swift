@@ -6,24 +6,23 @@ struct ResultPlayer: View {
     let isPlaying: Bool
     let onReplace: () -> Void
 
-    @State private var player: AVPlayer
+    @State private var player: AVPlayer?
 
     private let playIconWidth: Double = 39
     private let playIconHeight: Double = 45
 
-    init(url: URL, isPlaying: Bool, onReplace: @escaping () -> Void) {
-        self.url = url
-        self.isPlaying = isPlaying
-        self.onReplace = onReplace
-        _player = State(initialValue: AVPlayer(url: url))
-    }
-
     private var playbackEnded: NotificationCenter.Publisher {
-        NotificationCenter.default.publisher(for: .AVPlayerItemDidPlayToEndTime, object: player.currentItem)
+        NotificationCenter.default.publisher(for: .AVPlayerItemDidPlayToEndTime, object: player?.currentItem)
     }
 
     var body: some View {
-        VideoPlayerView(player: player)
+        Group {
+            if let player {
+                VideoPlayerView(player: player)
+            } else {
+                Color.black
+            }
+        }
             .overlay {
                 if !isPlaying {
                     Color.black.opacity(Opacity.muted)
@@ -40,13 +39,20 @@ struct ResultPlayer: View {
                 }
             }
             .animation(Animations.state, value: isPlaying)
+            .onAppear {
+                guard player == nil else { return }
+                let player = AVPlayer(url: url)
+                self.player = player
+                if isPlaying { player.play() }
+            }
             .onChange(of: isPlaying) { isPlaying in
-                isPlaying ? player.play() : player.pause()
+                isPlaying ? player?.play() : player?.pause()
             }
             .onReceive(playbackEnded) { _ in
+                guard let player else { return }
                 player.seek(to: .zero)
                 player.play()
             }
-            .onDisappear(perform: player.pause)
+            .onDisappear { player?.pause() }
     }
 }

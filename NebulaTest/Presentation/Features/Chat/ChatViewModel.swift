@@ -43,7 +43,8 @@ final class ChatViewModel: ObservableObject {
     }
 
     var lastAssistantMessageID: UUID? {
-        messages.last { $0.role == .assistant }?.id
+        guard let last = messages.last, last.role == .assistant else { return nil }
+        return last.id
     }
 
     func load() {

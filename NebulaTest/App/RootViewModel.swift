@@ -15,14 +15,16 @@ final class RootViewModel: ObservableObject {
     @Published private(set) var phase: Phase = .splash
 
     private let onboardingStore: OnboardingStateStore
+    private let splashDuration: Duration
 
-    init(onboardingStore: OnboardingStateStore) {
+    init(onboardingStore: OnboardingStateStore, splashDuration: Duration = .seconds(RootViewModel.splashSeconds)) {
         self.onboardingStore = onboardingStore
+        self.splashDuration = splashDuration
     }
 
     func start() async {
         guard phase == .splash else { return }
-        try? await Task.sleep(for: .seconds(Self.splashSeconds))
+        try? await Task.sleep(for: splashDuration)
         guard !Task.isCancelled else { return }
         phase = onboardingStore.hasCompletedOnboarding ? .main : .onboarding
     }

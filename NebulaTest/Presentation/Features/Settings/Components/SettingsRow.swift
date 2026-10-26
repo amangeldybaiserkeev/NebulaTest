@@ -18,28 +18,31 @@ struct SettingsRow: View {
     private let chevronSize: Double = 13
 
     var body: some View {
-        Button {
-            action?()
-        } label: {
-            HStack(spacing: Spacing.xxs) {
-                Image(systemName: symbol)
-                    .font(.system(size: symbolSize))
-                    .foregroundStyle(LinearGradient.accent)
-                    .frame(width: iconWidth)
-                    .padding(.trailing, iconTrailingPadding)
-                Text(title)
-                    .font(AppFont.body)
-                    .foregroundStyle(.white)
-                Spacer()
-                accessoryView
-            }
-            .padding(.horizontal, Spacing.reg)
-            .frame(height: TouchTarget.minimum)
-            .background(Color.card.opacity(Opacity.medium), in: .capsule)
-            .contentShape(.capsule)
+        if let action {
+            Button(action: action) { content }
+                .buttonStyle(PressableButtonStyle())
+        } else {
+            content
         }
-        .buttonStyle(PressableButtonStyle())
-        .disabled(action == nil)
+    }
+
+    private var content: some View {
+        HStack(spacing: Spacing.xxs) {
+            Image(systemName: symbol)
+                .font(.system(size: symbolSize))
+                .foregroundStyle(LinearGradient.accent)
+                .frame(width: iconWidth)
+                .padding(.trailing, iconTrailingPadding)
+            Text(title)
+                .font(AppFont.body)
+                .foregroundStyle(.white)
+            Spacer()
+            accessoryView
+        }
+        .padding(.horizontal, Spacing.reg)
+        .frame(height: TouchTarget.minimum)
+        .background(Color.card.opacity(Opacity.medium), in: .capsule)
+        .contentShape(.capsule)
     }
 
     @ViewBuilder

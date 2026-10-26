@@ -107,6 +107,7 @@ struct MainFlowView: View {
     }
 
     private func pop() {
+        guard !path.isEmpty else { return }
         path.removeLast()
     }
 
